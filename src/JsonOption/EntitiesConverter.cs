@@ -10,13 +10,10 @@ namespace TwitterSharp.JsonOption
         public override Entities Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var json = JsonSerializer.Deserialize<JsonElement>(ref reader, options);
-            JsonElement elem;
-            if (json.TryGetProperty("description", out elem))
-            { }
-            else
-            {
+
+            if (!json.TryGetProperty("description", out JsonElement elem))
                 elem = json;
-            }
+
             var entities = JsonSerializer.Deserialize<Entities>(elem.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             entities.Urls ??= Array.Empty<EntityUrl>();
             entities.Hashtags ??= Array.Empty<EntityTag>();

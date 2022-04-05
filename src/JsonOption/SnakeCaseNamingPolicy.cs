@@ -9,9 +9,8 @@ namespace TwitterSharp.JsonOption
         public override string ConvertName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-            {
                 return name;
-            }
+
             StringBuilder str = new();
             str.Append(char.ToLower(name[0]));
             foreach (char c in name.Skip(1))
