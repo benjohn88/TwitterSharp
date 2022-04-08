@@ -12,9 +12,15 @@ namespace TwitterSharp.JsonOption
             var json = JsonSerializer.Deserialize<JsonElement>(ref reader, options);
 
             if (!json.TryGetProperty("description", out JsonElement elem))
+            {
                 elem = json;
+            }
 
-            var entities = JsonSerializer.Deserialize<Entities>(elem.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var entities = JsonSerializer.Deserialize<Entities>(elem.ToString(), new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
             entities.Urls ??= Array.Empty<EntityUrl>();
             entities.Hashtags ??= Array.Empty<EntityTag>();
             entities.Cashtags ??= Array.Empty<EntityTag>();
